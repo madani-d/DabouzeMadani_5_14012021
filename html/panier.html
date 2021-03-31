@@ -16,7 +16,7 @@
             <div class="row">
                 <nav class="col navbar navbar-expand-lg navbar-light d-flex">
                     <a href="../index.html" class="navbar-brand">
-                        <img src="../image/logoOrinoco.png"  alt="Logo Orinoco" width="200" >
+                        <img src="../image/logoOrinoco.png" alt="Logo Orinoco" width="200" >
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
@@ -39,19 +39,65 @@
     <div class="pink-gradient">
         <div class="container">
             <div class="row">
-                <h1 class="text-center fw-bold p-4" id="h1-teddie"></h1>
+                <h1 class="text-center fw-bold p-4">Mon panier</h1>
             </div>
         </div>
     </div>
 
-    <div class="container my-auto">
-        <div class="row" id="produitContainer">
-
+    <div class="container my-5" id="basketEmpty">
+        <div class="row">
+            <div class="col text-center">
+                <h2 class="h1 my-5">Votre Panier est vide</h2>
+                <i class="fas fa-shopping-cart fa-10x basket my-5"></i>
+            </div>
         </div>
     </div>
 
+    <div class="container visually-hidden"  id="basketContainer">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Produit</th>
+                    <th scope="col">prix à l'unité</th>
+                    <th scope="col">quantité</th>
+                    <th scope="col" class="text-start">prix total</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="basketList">
+            </tbody>
+        </table>
+
+        <form class="row" id="formulaire">
+            <div class="col-12 col-md-6">
+                <label for="firstName" class="form-label">Prenom</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" required pattern="\D+">
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="lasttName" class="form-label">Nom</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" required pattern="\D+">
+            </div>
+            <div class="col-12">
+                <label for="address" class="form-label">Adresse</label>
+                <input type="text" id="address" name="address" class="form-control" required>
+            </div>
+            <div class="col-6">
+                <label for="city" class="form-label">Ville</label>
+                <input type="text" id="city" name="city" class="form-control" required pattern="\D+">
+            </div>
+            <div class="col-8">
+                <label for="email" class="form-label is-invalid">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="col-12 mt-3">
+                <button class="btn btn-primary" type="submit" id="formSubmit">Valider</button>
+            </div>
+        </form>
+    </div>
+
+
     
-    <div class="bg-pink mt-auto">
+    <div class="footer mt-auto bg-pink">
         <div class="container">
             <div class="row p-4">
                 <div class="col">
@@ -68,7 +114,7 @@
             </div>
         </div>
 
-    <script type="module" src="../script/product.js"></script>
+    <script type="module" src="../script/basket.js"></script>
     
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 

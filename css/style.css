@@ -14,7 +14,19 @@
 .btn-purple {
   color: #fff;
   background-color: #8f5bfe !important;
-  border-color: #8f5bfe !important;
+  border: none !important;
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px black, 2px 2px 5px inset white !important;
+}
+.btn-purple:hover {
+  box-shadow: 2px 2px 5px inset black, -2px -2px 5px inset white !important;
+}
+
+.basket {
+  background: linear-gradient(110deg, #e78b05, #8f5bfe 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .coverIndex {
@@ -34,6 +46,10 @@
 
 .pink-gradient {
   background: linear-gradient(to bottom, #f3e9f1, #fff);
+}
+
+body {
+  min-height: 100vh;
 }
 
 /*!
