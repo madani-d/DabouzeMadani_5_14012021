@@ -50,3 +50,16 @@
 body {
     min-height: 100vh;
 }
+
+#quantityProduct {
+    width: 43px;
+}
+
+#plusMoins {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#bouton {
+    white-space: nowrap;
+}

@@ -26,7 +26,17 @@ if (document.getElementById("produitContainer") !== null) {
                             <p class="card-text mb-3">${price} €</p>
                             <select class="form-select mb-3" aria-label="Default select example" id="selectColor">
                             </select>
-                            <button type="button" class="btn btn-primary btn-purple p-2 mt-5" id="bouton">Ajouter au panier</button>
+                            <form>
+                                <label for="quantityProduct">Quantité</label>
+                                <div class="input-group mb-3 col-2 d-flex justify-content-between" id="formQuantity">
+                                    <button type="submit" class="btn btn-primary btn-purple p-2" id="bouton">Ajouter au panier</button>
+                                    <div id="plusMoins">
+                                        <button class="btn btn-primary btn-purple" type="button" id="moins">-</button>
+                                        <input type="text" class="form-control" aria-label="Quantité de produit" value="1"  minlength="1" maxlength="2" id="quantityProduct">
+                                        <button class="btn btn-primary btn-purple" type="button" id="plus">+</button>
+                                    <div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -41,15 +51,39 @@ if (document.getElementById("produitContainer") !== null) {
                 console.log(data.colors[i]);
             }
 
+            let quantityProductElt = document.getElementById("quantityProduct");
+
+
+            let boutonPlusElt = document.getElementById("plus");
+            boutonPlusElt.addEventListener('click', function () {
+                console.log(quantityProductElt.value);
+                if (quantityProductElt.value < 99) {
+                    quantityProductElt.value++;
+                }
+            });
+
+            let boutonMoinsElt = document.getElementById("moins");
+            boutonMoinsElt.addEventListener('click', function () {
+                console.log(quantityProductElt.value);
+                if (quantityProductElt.value > 1) {
+                    quantityProductElt.value--;
+                }
+            });
+
             let boutonElt = document.getElementById("bouton");
-            boutonElt.addEventListener('click', function() {
-                let nbProduit = localStorage.getItem(`${articleId}`);
-                nbProduit++;
+            boutonElt.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (localStorage.getItem(`${articleId}`)) {
+                    var nbProduit = parseInt(localStorage.getItem(`${articleId}`));
+                } else {
+                    var nbProduit = 0;
+                }
+                nbProduit += parseInt(quantityProductElt.value);
                 localStorage.setItem(`${articleId}`, nbProduit);
                 console.log(localStorage);
 
                 fillBasket();
-            })
+            });
             console.log(data);
         })
 }

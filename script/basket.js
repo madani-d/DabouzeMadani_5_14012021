@@ -19,9 +19,9 @@ if (document.getElementById("basketContainer") !== null) {
     fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
-            let totalPrice = 0;
             let basketListElt = document.getElementById("basketList");
             let fillBasketPage = function () {
+                let totalPrice = 0;
                 if (localStorage.length > 0) {
                     basketEmptyElt.classList.add("visually-hidden");
                     basketContainerElt.classList.remove("visually-hidden");
@@ -36,7 +36,7 @@ if (document.getElementById("basketContainer") !== null) {
                     let productQuantity = localStorage.getItem(productId);
                     console.log(productId);
                     console.log(productQuantity);
-    
+
                     for (let j = 0; j < data.length; j++) {
                         if (productId === data[j]._id) {
                             var prix = productQuantity * data[j].price / 100;
@@ -47,17 +47,17 @@ if (document.getElementById("basketContainer") !== null) {
                                 <td>${productQuantity}</td>
                                 <td>${prix} €</td>
                                 <td><i class="fas fa-trash-alt btn btn-danger py-1 px-2 m-auto" id="${data[j]._id}"></i></td>`;
+                            totalPrice += prix;
                             basketListElt.appendChild(basketLineElt);
                             console.log(data[j].name);
-                            let test = data[j]._id;
-                            document.getElementById(test).addEventListener('click', function () {
+                            let deleteElt = data[j]._id;
+                            document.getElementById(deleteElt).addEventListener('click', function () {
                                 localStorage.removeItem(`${data[j]._id}`);
                                 fillBasket();
                                 basketListElt.innerHTML = "";
                                 fillBasketPage();
-                                totalPrice-= prix;
+                                totalPrice -= prix;
                             })
-                            totalPrice += prix;
                         }
                     }
                 }
@@ -81,11 +81,11 @@ let formElt = document.getElementById("formulaire");
 formElt.addEventListener('submit', function (e) {
     e.preventDefault();
     contact = {
-        firstName: `${formElt.elements.firstName.value}`,
-        lastName: `${formElt.elements.lastName.value}`,
-        address: `${formElt.elements.address.value}`,
-        city: `${formElt.elements.city.value}`,
-        email: `${formElt.elements.email.value}`,
+        firstName: formElt.elements.firstName.value,
+        lastName: formElt.elements.lastName.value,
+        address: formElt.elements.address.value,
+        city: formElt.elements.city.value,
+        email: formElt.elements.email.value,
     };
 
     console.log(contact);
@@ -114,5 +114,5 @@ formElt.addEventListener('submit', function (e) {
             emptyStorage();
             localStorage.setItem("orderId", `${data.orderId}`);
             window.location.assign("./confirmation.html");
-        } )
+        })
 });
