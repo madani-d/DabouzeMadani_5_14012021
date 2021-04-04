@@ -1,14 +1,17 @@
-import { fillBasket , apiUrl } from "./utils.js";
+import {
+    fillBasket,
+    apiUrl
+} from "./utils.js";
 
 fillBasket();
 
 if (document.getElementById("produitContainer") !== null) {
     let params = new URLSearchParams(window.location.search);
-    let articleId = params.get("id");
+    let articleId = params.get("id");// recover id of the product page
     let h1Elt = document.getElementById("h1-teddie");
     let produitContainer = document.getElementById("produitContainer");
 
-    fetch(apiUrl + `/${articleId}`)
+    fetch(apiUrl + `/${articleId}`)// fetch product data with url api + id product
         .then(res => res.json())
         .then(data => {
             let price = data.price / 100;
@@ -29,7 +32,7 @@ if (document.getElementById("produitContainer") !== null) {
                             <form>
                                 <label for="quantityProduct">Quantité</label>
                                 <div class="input-group mb-3 col-2 d-flex justify-content-between" id="formQuantity">
-                                    <button type="submit" class="btn btn-primary btn-purple p-2" id="bouton">Ajouter au panier</button>
+                                    <button type="submit" class="btn btn-primary btn-purple p-2" id="basketAdd">Ajouter au panier</button>
                                     <div id="plusMoins">
                                         <button class="btn btn-primary btn-purple" type="button" id="moins">-</button>
                                         <input type="text" class="form-control" aria-label="Quantité de produit" value="1"  minlength="1" maxlength="2" id="quantityProduct">
@@ -40,15 +43,14 @@ if (document.getElementById("produitContainer") !== null) {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`//create product card with all informations, button basketAdd and button plus and moins
 
-            for (let i = 0; i < data.colors.length; i++) {
+            for (let i = 0; i < data.colors.length; i++) {//create element option with colors for value for each colors
                 let selectElt = document.getElementById("selectColor");
                 let optionElt = document.createElement("option");
                 optionElt.setAttribute("value", `${data.colors[i]}`);
                 optionElt.textContent = `${data.colors[i]}`;
                 selectElt.appendChild(optionElt);
-                console.log(data.colors[i]);
             }
 
             let quantityProductElt = document.getElementById("quantityProduct");
@@ -56,7 +58,6 @@ if (document.getElementById("produitContainer") !== null) {
 
             let boutonPlusElt = document.getElementById("plus");
             boutonPlusElt.addEventListener('click', function () {
-                console.log(quantityProductElt.value);
                 if (quantityProductElt.value < 99) {
                     quantityProductElt.value++;
                 }
@@ -64,26 +65,23 @@ if (document.getElementById("produitContainer") !== null) {
 
             let boutonMoinsElt = document.getElementById("moins");
             boutonMoinsElt.addEventListener('click', function () {
-                console.log(quantityProductElt.value);
                 if (quantityProductElt.value > 1) {
                     quantityProductElt.value--;
                 }
             });
 
-            let boutonElt = document.getElementById("bouton");
-            boutonElt.addEventListener('click', function (e) {
+            let basketAddElt = document.getElementById("basketAdd");
+            basketAddElt.addEventListener('click', function (e) {
                 e.preventDefault();
-                if (localStorage.getItem(`${articleId}`)) {
-                    var nbProduit = parseInt(localStorage.getItem(`${articleId}`));
+                if (localStorage.getItem(`${articleId}`)) {// initialise nbProduct 
+                    var nbProduit = parseInt(localStorage.getItem(`${articleId}`));// if this product exists in localestorage equal his value
                 } else {
-                    var nbProduit = 0;
+                    var nbProduit = 0;// or equal 0
                 }
                 nbProduit += parseInt(quantityProductElt.value);
                 localStorage.setItem(`${articleId}`, nbProduit);
-                console.log(localStorage);
 
                 fillBasket();
             });
-            console.log(data);
         })
 }

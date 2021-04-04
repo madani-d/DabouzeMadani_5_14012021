@@ -2,7 +2,8 @@ import {
     fillBasket,
     regexId,
     apiUrl,
-    emptyStorage
+    emptyStorage,
+    checkStorage
 } from "./utils.js";
 
 
@@ -22,23 +23,20 @@ if (document.getElementById("basketContainer") !== null) {
             let basketListElt = document.getElementById("basketList");
             let fillBasketPage = function () {
                 let totalPrice = 0;
-                if (localStorage.length > 0) {
+                if (localStorage.length > 0) {// hidding basketEmpty if product in localstorage
                     basketEmptyElt.classList.add("visually-hidden");
                     basketContainerElt.classList.remove("visually-hidden");
                 }
-                if (localStorage.length < 1 || !regexId.test(localStorage.key(0))) {
-                    console.log("alors ????");
+                if (localStorage.length < 1 || checkStorage(localStorage) === 0) {// disabled hidding basketEmpty no product in localstorage
                     basketEmptyElt.classList.remove("visually-hidden");
                     basketContainerElt.classList.add("visually-hidden");
                 }
-                for (let i = 0; i < localStorage.length; i++) {
+                for (let i = 0; i < localStorage.length; i++) {// loop for each product in localstorage
                     let productId = localStorage.key(i);
                     let productQuantity = localStorage.getItem(productId);
-                    console.log(productId);
-                    console.log(productQuantity);
 
-                    for (let j = 0; j < data.length; j++) {
-                        if (productId === data[j]._id) {
+                    for (let j = 0; j < data.length; j++) {// loop for each product in api
+                        if (productId === data[j]._id) {// if localstorage id equal api id 
                             var prix = productQuantity * data[j].price / 100;
                             let basketLineElt = document.createElement("tr");
                             basketLineElt.innerHTML = `
@@ -49,9 +47,8 @@ if (document.getElementById("basketContainer") !== null) {
                                 <td><i class="fas fa-trash-alt btn btn-danger py-1 px-2 m-auto" id="${data[j]._id}"></i></td>`;
                             totalPrice += prix;
                             basketListElt.appendChild(basketLineElt);
-                            console.log(data[j].name);
                             let deleteElt = data[j]._id;
-                            document.getElementById(deleteElt).addEventListener('click', function () {
+                            document.getElementById(deleteElt).addEventListener('click', function () {// add button to delete the product and reset basket and basket page
                                 localStorage.removeItem(`${data[j]._id}`);
                                 fillBasket();
                                 basketListElt.innerHTML = "";
@@ -88,18 +85,15 @@ formElt.addEventListener('submit', function (e) {
         email: formElt.elements.email.value,
     };
 
-    console.log(contact);
 
     let products = []
     for (let i = 0; i < localStorage.length; i++) {
         if (regexId.test(localStorage.key(i))) {
             products.push(localStorage.key(i));
-            console.log("regex localstorage ok!!");
         }
     }
-    console.log(products);
 
-    fetch(apiUrl + "/order", {
+    fetch(apiUrl + "/order", {// post the request to api
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -112,7 +106,7 @@ formElt.addEventListener('submit', function (e) {
         .then(res => res.json())
         .then(data => {
             emptyStorage();
-            localStorage.setItem("orderId", `${data.orderId}`);
+            localStorage.setItem("orderId", `${data.orderId}`);// recover order id
             window.location.assign("./confirmation.html");
         })
 });

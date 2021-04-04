@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="container my-5" id="basketEmpty">
+    <div class="container my-5 visually-hidden" id="basketEmpty">
         <div class="row">
             <div class="col text-center">
                 <h2 class="h1 my-5">Votre Panier est vide</h2>
@@ -71,23 +71,23 @@
         <form class="row" id="formulaire">
             <div class="col-12 col-md-6">
                 <label for="firstName" class="form-label">Prenom</label>
-                <input type="text" id="firstName" name="firstName" class="form-control" required pattern="\D+">
+                <input type="text" id="firstName" name="firstName" class="form-control" minlength="2" maxlength="26" required pattern="\D+">
             </div>
             <div class="col-12 col-md-6">
                 <label for="lasttName" class="form-label">Nom</label>
-                <input type="text" id="lastName" name="lastName" class="form-control" required pattern="\D+">
+                <input type="text" id="lastName" name="lastName" class="form-control" minlength="2" maxlength="26" required pattern="\D+">
             </div>
             <div class="col-12">
                 <label for="address" class="form-label">Adresse</label>
-                <input type="text" id="address" name="address" class="form-control" required>
+                <input type="text" id="address" name="address" class="form-control" minlength="7" maxlength="75" maxlength="26" required>
             </div>
             <div class="col-6">
                 <label for="city" class="form-label">Ville</label>
-                <input type="text" id="city" name="city" class="form-control" required pattern="\D+">
+                <input type="text" id="city" name="city" class="form-control" minlength="2" maxlength="26" required pattern="\D+">
             </div>
             <div class="col-8">
                 <label for="email" class="form-label is-invalid">Email</label>
-                <input type="email" id="email" name="email" class="form-control" required>
+                <input type="email" id="email" name="email" class="form-control" minlength="6" maxlength="50"required>
             </div>
             <div class="col-12 mt-3">
                 <button class="btn btn-primary" type="submit" id="formSubmit">Valider</button>
