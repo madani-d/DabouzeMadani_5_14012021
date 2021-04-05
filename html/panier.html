@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Boutique en ligne large choix d'ours en peluches, de caméras vintage ou meubles en chêne.">
+    <meta name="description"
+        content="Boutique en ligne large choix d'ours en peluches, de caméras vintage ou meubles en chêne.">
     <script src="https://kit.fontawesome.com/9945d7eddd.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="../image/favicon.png">
     <link rel="stylesheet" href="../css/style.css">
     <title>Orinoco boutique en ligne</title>
 </head>
+
 <body class="d-flex flex-column">
     <div class="bg-pink">
         <div class="container">
             <div class="row">
                 <nav class="col navbar navbar-expand-lg navbar-light d-flex">
                     <a href="../index.html" class="navbar-brand">
-                        <img src="../image/logoOrinoco.png" alt="Logo Orinoco" width="200" >
+                        <img src="../image/logoOrinoco.png" alt="Logo Orinoco" width="200">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
@@ -27,7 +30,9 @@
                                 <a href="../index.html" class="nav-link pt-3 fs-5">Accueil</a>
                             </li>
                             <li class="nav-item ms-5-lg">
-                                <a href="panier.html" class="nav-link"><i class="fas fa-shopping-cart fa-2x basket"></i><span class="badge bg-purple" id="basket"></span></a>
+                                <a href="panier.html" class="nav-link"><i
+                                        class="fas fa-shopping-cart fa-2x basket"></i><span class="badge bg-purple"
+                                        id="basket"></span></a>
                             </li>
                         </ul>
                     </div>
@@ -53,7 +58,7 @@
         </div>
     </div>
 
-    <div class="container visually-hidden"  id="basketContainer">
+    <div class="container visually-hidden" id="basketContainer">
         <table class="table text-center">
             <thead>
                 <tr>
@@ -71,23 +76,27 @@
         <form class="row" id="formulaire">
             <div class="col-12 col-md-6">
                 <label for="firstName" class="form-label">Prenom</label>
-                <input type="text" id="firstName" name="firstName" class="form-control" minlength="2" maxlength="26" required pattern="\D+">
+                <input type="text" id="firstName" name="firstName" class="form-control" minlength="1" maxlength="26"
+                    required pattern="[A-Za-z]{1,32}">
             </div>
             <div class="col-12 col-md-6">
                 <label for="lasttName" class="form-label">Nom</label>
-                <input type="text" id="lastName" name="lastName" class="form-control" minlength="2" maxlength="26" required pattern="\D+">
+                <input type="text" id="lastName" name="lastName" class="form-control" minlength="1" maxlength="26"
+                    required pattern="[A-Za-z]{1,32}">
             </div>
             <div class="col-12">
                 <label for="address" class="form-label">Adresse</label>
-                <input type="text" id="address" name="address" class="form-control" minlength="7" maxlength="75" maxlength="26" required>
+                <input type="text" id="address" name="address" class="form-control" minlength="7" maxlength="75"
+                    required>
             </div>
             <div class="col-6">
                 <label for="city" class="form-label">Ville</label>
-                <input type="text" id="city" name="city" class="form-control" minlength="2" maxlength="26" required pattern="\D+">
+                <input type="text" id="city" name="city" class="form-control" minlength="1" maxlength="26" required
+                    pattern="\D+">
             </div>
             <div class="col-8">
                 <label for="email" class="form-label is-invalid">Email</label>
-                <input type="email" id="email" name="email" class="form-control" minlength="6" maxlength="50"required>
+                <input type="email" id="email" name="email" class="form-control" minlength="6" maxlength="50" required>
             </div>
             <div class="col-12 mt-3">
                 <button class="btn btn-primary" type="submit" id="formSubmit">Valider</button>
@@ -96,7 +105,7 @@
     </div>
 
 
-    
+
     <div class="footer mt-auto bg-pink">
         <div class="container">
             <div class="row p-4">
@@ -114,12 +123,19 @@
             </div>
         </div>
 
-    <script type="module" src="../script/basket.js"></script>
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script type="module" src="../script/basket.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
 </body>
+
 </html>

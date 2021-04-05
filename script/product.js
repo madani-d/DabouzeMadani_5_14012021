@@ -1,22 +1,22 @@
 import {
     fillBasket,
-    apiUrl
+    apiUrl,
+    searchProductStorage
 } from "./utils.js";
 
 fillBasket();
 
-if (document.getElementById("produitContainer") !== null) {
-    let params = new URLSearchParams(window.location.search);
-    let articleId = params.get("id");// recover id of the product page
-    let h1Elt = document.getElementById("h1-teddie");
-    let produitContainer = document.getElementById("produitContainer");
+let params = new URLSearchParams(window.location.search);
+let articleId = params.get("id"); // recover id of the product page
+let h1Elt = document.getElementById("h1-teddie");
+let produitContainer = document.getElementById("produitContainer");
 
-    fetch(apiUrl + `/${articleId}`)// fetch product data with url api + id product
-        .then(res => res.json())
-        .then(data => {
-            let price = data.price / 100;
-            h1Elt.textContent = data.name;
-            produitContainer.innerHTML = `
+fetch(apiUrl + `/${articleId}`) // fetch product data with url api + id product
+    .then(res => res.json())
+    .then(data => {
+        let price = data.price / 100;
+        h1Elt.textContent = data.name;
+        produitContainer.innerHTML = `
             <div class="card mb-4 shadow-lg border-dark">
                 <div class="row">
                     <div class="col-0 col-md-6 px-0">
@@ -43,45 +43,41 @@ if (document.getElementById("produitContainer") !== null) {
                         </div>
                     </div>
                 </div>
-            </div>`//create product card with all informations, button basketAdd and button plus and moins
+            </div>` //create product card with all informations, button basketAdd and button plus and moins
 
-            for (let i = 0; i < data.colors.length; i++) {//create element option with colors for value for each colors
-                let selectElt = document.getElementById("selectColor");
-                let optionElt = document.createElement("option");
-                optionElt.setAttribute("value", `${data.colors[i]}`);
-                optionElt.textContent = `${data.colors[i]}`;
-                selectElt.appendChild(optionElt);
+        for (let i = 0; i < data.colors.length; i++) { //create element option with colors for value for each colors
+            let selectElt = document.getElementById("selectColor");
+            let optionElt = document.createElement("option");
+            optionElt.setAttribute("value", `${data.colors[i]}`);
+            optionElt.textContent = `${data.colors[i]}`;
+            selectElt.appendChild(optionElt);
+        }
+
+        let quantityProductElt = document.getElementById("quantityProduct");
+
+
+        let boutonPlusElt = document.getElementById("plus");
+        boutonPlusElt.addEventListener('click', function () {
+            if (quantityProductElt.value < 99) {
+                quantityProductElt.value++;
             }
+        });
 
-            let quantityProductElt = document.getElementById("quantityProduct");
+        let boutonMoinsElt = document.getElementById("moins");
+        boutonMoinsElt.addEventListener('click', function () {
+            if (quantityProductElt.value > 1) {
+                quantityProductElt.value--;
+            }
+        });
 
+        let basketAddElt = document.getElementById("basketAdd");
+        basketAddElt.addEventListener('click', function (e) {
+            e.preventDefault();
+            let nbProduit = searchProductStorage(articleId);
+            nbProduit += parseInt(quantityProductElt.value);
+            localStorage.setItem(`${articleId}`, nbProduit);
+            quantityProductElt.value = 1;
 
-            let boutonPlusElt = document.getElementById("plus");
-            boutonPlusElt.addEventListener('click', function () {
-                if (quantityProductElt.value < 99) {
-                    quantityProductElt.value++;
-                }
-            });
-
-            let boutonMoinsElt = document.getElementById("moins");
-            boutonMoinsElt.addEventListener('click', function () {
-                if (quantityProductElt.value > 1) {
-                    quantityProductElt.value--;
-                }
-            });
-
-            let basketAddElt = document.getElementById("basketAdd");
-            basketAddElt.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (localStorage.getItem(`${articleId}`)) {// initialise nbProduct 
-                    var nbProduit = parseInt(localStorage.getItem(`${articleId}`));// if this product exists in localestorage equal his value
-                } else {
-                    var nbProduit = 0;// or equal 0
-                }
-                nbProduit += parseInt(quantityProductElt.value);
-                localStorage.setItem(`${articleId}`, nbProduit);
-
-                fillBasket();
-            });
-        })
-}
+            fillBasket();
+        });
+    })

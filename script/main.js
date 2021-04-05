@@ -1,24 +1,24 @@
 import {
     fillBasket,
-    apiUrl
+    apiUrl,
+    searchProductStorage
 } from "./utils.js";
 
 
 fillBasket();
 
-if (document.getElementById("teddiesContainer") !== null) {
-    let teddiesContainer = document.getElementById("teddiesContainer");
+let teddiesContainer = document.getElementById("teddiesContainer");
 
-    fetch(apiUrl)
-        .then(res => res.json())
-        .then(data => {
+fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
 
-            for (let i = 0; i < data.length; i++) {
-                var prix = data[i].price / 100;
+        for (let i = 0; i < data.length; i++) {
+            var prix = data[i].price / 100;
 
-                let cardTeddies = document.createElement("div");
-                cardTeddies.classList.add("col-12", "col-lg-5", "my-4", "m-lg-4");
-                cardTeddies.innerHTML += `
+            let cardTeddies = document.createElement("div");
+            cardTeddies.classList.add("col-12", "col-lg-5", "my-4", "m-lg-4");
+            cardTeddies.innerHTML += `
                     <div class="card shadow-lg border-dark">
                         <img src="${data[i].imageUrl}" alt="peluche ${data[i].name}" class="card-img-top coverIndex">
                         <div class="card-body  bg-pink">
@@ -29,20 +29,15 @@ if (document.getElementById("teddiesContainer") !== null) {
                                 <button class="btn btn-primary btn-purple p-2" id="${data[i]._id}">Achat rapide</button>
                             </div>
                         </div>
-                    </div>`;// create card for each products with name, price, picture and link to page product and id for parameter
+                    </div>`; // create card for each products with name, price, picture and link to page product and id for parameter
 
-                teddiesContainer.appendChild(cardTeddies);
+            teddiesContainer.appendChild(cardTeddies);
 
-                document.getElementById(data[i]._id).addEventListener('click', function () {
-                    if (localStorage.getItem(data[i]._id)) {
-                        var nbProduit = parseInt(localStorage.getItem(data[i]._id));
-                    } else {
-                        var nbProduit = 0;
-                    }
-                    nbProduit++;
-                    localStorage.setItem(data[i]._id, nbProduit);
-                    fillBasket();
-                });
-            }
-        });
-}
+            document.getElementById(data[i]._id).addEventListener('click', function () {
+                let nbProduit = searchProductStorage(data[i]._id);
+                nbProduit++;
+                localStorage.setItem(data[i]._id, nbProduit);
+                fillBasket();
+            });
+        }
+    });
